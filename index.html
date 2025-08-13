@@ -1,10 +1,228 @@
 <!doctype html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <title>我的网站</title>
+  <title>今天是七夕欸</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Microsoft YaHei', sans-serif;
+      background: radial-gradient(circle at bottom, #ffcccc, #fff0f5, #ffe6eb);
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+    header {
+      padding: 50px 20px;
+    }
+    header h1 {
+      font-size: 2.5em;
+      color: #d6336c;
+      margin-bottom: 10px;
+    }
+    .photo {
+      margin: 20px auto;
+      max-width: 90%;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .content {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      line-height: 1.8;
+    }
+    .message-board {
+      background: rgba(255,255,255,0.8);
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 600px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .message-board h2 {
+      margin-bottom: 10px;
+      color: #d6336c;
+    }
+    .message-board textarea {
+      width: 100%;
+      height: 80px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      resize: none;
+      font-size: 1em;
+      outline: none;
+    }
+    .message-board button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff6699;
+      color: white;
+      cursor: pointer;
+    }
+    .messages {
+      margin-top: 20px;
+      text-align: left;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .message {
+      background: white;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #888;
+      position: relative;
+      z-index: 10;
+    }
+    .heart {
+      position: fixed;
+      color: pink;
+      animation: fall linear;
+      z-index: 9999;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      0% {transform: translateY(-10px) rotate(0deg);}
+      100% {transform: translateY(100vh) rotate(360deg);}
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+  </style>
 </head>
 <body>
-  <h1>你好，这是我的第一个网页</h1>
+  <audio src="music.mp3" autoplay loop></audio>
+
+  <header>
+    <h1>七夕快乐，嘻嘻嘻 ❤️</h1>
+    <p>记录每一个温暖的瞬间</p>
+  </header>
+
+  <img src="your-photo.jpg" alt="我们" class="photo">
+
+  <div class="content">
+    <h2>我们的故事</h2>
+    <p>2024年7月，我们在游戏里相遇；2025年3月，我们在一起。</p>
+    <p>每一次聊天、每一次见面，都让我觉得很开心。</p>
+    <p>有你陪伴真不戳。</p>
+
+    <h2>特别的话</h2>
+    <p>我还是很喜欢你。</p>
+  </div>
+
+  <!-- 留言墙 -->
+  <div class="message-board">
+    <h2>💕 留言墙 💕</h2>
+    <textarea id="messageInput" placeholder="写下你的话..."></textarea><br>
+    <button onclick="addMessage()">发送</button>
+    <div class="messages" id="messagesList"></div>
+  </div>
+
+  <footer>
+    <p>💖 纪念日：2025年七夕节 | 制作人：QX 💖</p>
+  </footer>
+
+  <canvas id="fireworks"></canvas>
+
+  <script>
+    // 爱心飘落
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '❤';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+      heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => { heart.remove(); }, 5000);
+    }
+    setInterval(createHeart, 200);
+
+    // 烟花效果
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    function random(min, max) { return Math.random() * (max - min) + min; }
+    function createFirework() {
+      const x = random(0, canvas.width);
+      const y = random(0, canvas.height / 2);
+      const color = `hsl(${random(0, 360)}, 100%, 70%)`;
+      const count = random(50, 100);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: x, y: y,
+          angle: random(0, Math.PI * 2),
+          speed: random(1, 6),
+          radius: 2,
+          color: color,
+          life: 100
+        });
+      }
+    }
+    function updateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, index) => {
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.life--;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        if (p.life <= 0) { particles.splice(index, 1); }
+      });
+    }
+    setInterval(createFirework, 1500);
+    function animate() { updateParticles(); requestAnimationFrame(animate); }
+    animate();
+
+    // 留言墙功能
+    function loadMessages() {
+      const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+      const list = document.getElementById('messagesList');
+      list.innerHTML = '';
+      messages.forEach(msg => {
+        const div = document.createElement('div');
+        div.classList.add('message');
+        div.textContent = msg;
+        list.appendChild(div);
+      });
+    }
+    function addMessage() {
+      const input = document.getElementById('messageInput');
+      const text = input.value.trim();
+      if (text) {
+        const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+        messages.push(text);
+        localStorage.setItem('messages', JSON.stringify(messages));
+        input.value = '';
+        loadMessages();
+      }
+    }
+    loadMessages();
+  </script>
 </body>
 </html>
+
