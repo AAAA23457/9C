@@ -59,20 +59,21 @@
 
   /* 箭头与圆点（浮于顶层） */
   .arrows{
-    position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-    display:flex;gap:64px;z-index:20
+    position:fixed;top:80%;left:50%;transform:translate(-50%,-50%);
+    display:flex;gap:65px;z-index:20
   }
   .arrow{
     background:var(--accent);border:none;border-radius:50%;
-    width:88px;height:88px;padding:0;
+    width:68px;height:68px;padding:0;
     box-shadow:0 12px 24px rgba(0,0,0,.35);
     cursor:pointer; display:flex;align-items:center;justify-content:center;
     transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
   }
   .arrow:hover{ transform:scale(1.08); box-shadow:0 16px 30px rgba(0,0,0,.45); filter:saturate(1.1) }
-  .arrow svg{width:40px;height:40px;fill:#fff}
+  .arrow svg{width:39px;height:398px;display:block}
+.arrow svg *{stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;fill:none}
   .dots{position:fixed;left:50%;transform:translateX(-50%);bottom:64px;display:flex;gap:8px;z-index:20}
-  .dot{width:12px;height:12px;border-radius:50%;background:#ddd;transition:all .25s}
+  .dot{width:8px;height:8px;border-radius:50%;background:#ddd;transition:all .25s}
   .dot.active{background:var(--accent);transform:scale(1.2)}
 
   /* —— Lightbox（相册大图预览）—— */
@@ -105,10 +106,10 @@
       <!-- 第1页：封面 -->
       <section class="page">
         <header class="small">
-          <h1>七夕快乐，我的宝贝 ❤️</h1>
+          <h1>七夕快乐，我的宝贝 💙</h1>
           <p class="lead">这是属于我们的纪念日，记录每一个温暖的瞬间</p>
         </header>
-        <img class="photo" src="your-photo.jpg" alt="我们">
+        <img class="photo" src="images/your-photo.jpg" alt="我们">
         <div class="section">
           <p>第一次相遇：2024 年 7 月｜正式在一起：2025 年 3 月</p>
           <p>愿以后的每个七夕，都有你在我身旁。</p>
@@ -150,10 +151,10 @@
       <section class="page">
         <h1>我们的相册</h1>
         <div class="grid">
-          <img src="p1.jpg" alt="">
-          <img src="p2.jpg" alt="">
-          <img src="p3.jpg" alt="">
-          <img src="p4.jpg" alt="">
+          <img src="images/p1.jpg" alt="">
+          <img src="images/p2.jpg" alt="">
+          <img src="images/p3.jpg" alt="">
+          <img src="images/p4.jpg" alt="">
         </div>
         <div class="section"><p>把图片文件（p1.jpg…）上传到仓库即可自动显示，点击任意照片可放大浏览。</p></div>
       </section>
@@ -162,10 +163,10 @@
       <section class="page">
         <h1>我们的相册</h1>
         <div class="grid">
-          <img src="p1.jpg" alt="">
-          <img src="p2.jpg" alt="">
-          <img src="p3.jpg" alt="">
-          <img src="p4.jpg" alt="">
+          <img src="images/p5.jpg" alt="">
+          <img src="images/p6.jpg" alt="">
+          <img src="images/p7.jpg" alt="">
+          <img src="images/p8.jpg" alt="">
         </div>
         <div class="section"><p>把图片文件（p1.jpg…）上传到仓库即可自动显示，点击任意照片可放大浏览。</p></div>
       </section>
@@ -174,10 +175,10 @@
       <section class="page">
         <h1>我们的相册</h1>
         <div class="grid">
-          <img src="p1.jpg" alt="">
-          <img src="p2.jpg" alt="">
-          <img src="p3.jpg" alt="">
-          <img src="p4.jpg" alt="">
+          <img src="images/p9.jpg" alt="">
+          <img src="images/p10.jpg" alt="">
+          <img src="images/p11.jpg" alt="">
+          <img src="images/p12.jpg" alt="">
         </div>
         <div class="section"><p>把图片文件（p1.jpg…）上传到仓库即可自动显示，点击任意照片可放大浏览。</p></div>
       </section>
@@ -186,10 +187,10 @@
       <section class="page">
         <h1>我们的相册</h1>
         <div class="grid">
-          <img src="p1.jpg" alt="">
-          <img src="p2.jpg" alt="">
-          <img src="p3.jpg" alt="">
-          <img src="p4.jpg" alt="">
+          <img src="images/p13.jpg" alt="">
+          <img src="images/p14.jpg" alt="">
+          <img src="images/p15.jpg" alt="">
+          <img src="images/p16.jpg" alt="">
         </div>
         <div class="section"><p>把图片文件（p1.jpg…）上传到仓库即可自动显示，点击任意照片可放大浏览。</p></div>
       </section>
@@ -226,7 +227,7 @@
       
       <!-- 第12页：留言墙 -->
       <section class="page">
-        <h1>💕 留言墙 💕</h1>
+        <h1>💙 留言墙 💙</h1>
         <div class="board">
           <textarea id="msgInput" placeholder="写点什么给对方吧…"></textarea>
           <button class="btn" id="sendBtn">发送</button>
@@ -238,15 +239,13 @@
     <!-- 只有一套：翻页箭头 + 页码圆点 -->
     <div class="arrows">
       <button class="arrow" id="prevBtn" aria-label="上一页" title="上一页">
-        <svg viewBox="0 0 48 48">
-          <polygon points="28,10 16,24 28,38"></polygon>
-          <polygon points="36,10 24,24 36,38"></polygon>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
       </button>
       <button class="arrow" id="nextBtn" aria-label="下一页" title="下一页">
-        <svg viewBox="0 0 48 48">
-          <polygon points="12,10 24,24 12,38"></polygon>
-          <polygon points="20,10 32,24 20,38"></polygon>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
       </button>
     </div>
@@ -432,4 +431,3 @@ setInterval(heart,260);
 </script>
 </body>
 </html>
-
