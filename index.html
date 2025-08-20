@@ -70,11 +70,31 @@
     transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
   }
   .arrow:hover{ transform:scale(1.08); box-shadow:0 16px 30px rgba(0,0,0,.45); filter:saturate(1.1) }
-  .arrow svg{width:39px;height:39px;display:block}
+  .arrow svg{width:39px;height:398px;display:block}
 .arrow svg *{stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;fill:none}
   .dots{position:fixed;left:50%;transform:translateX(-50%);bottom:64px;display:flex;gap:8px;z-index:20}
-  .dot{width:7px;height:7px;border-radius:50%;background:#ddd;transition:all .55s}
+  .dot{width:8px;height:8px;border-radius:50%;background:#ddd;transition:all .25s}
   .dot.active{background:var(--accent);transform:scale(1.2)}
+  
+  .arrow{
+  will-change: transform;
+  transform: translateZ(0) scale(1);
+  -webkit-tap-highlight-color: transparent; /* 移动端去高亮 */
+  transition: box-shadow .25s ease, filter .25s ease; /* 缩放交给 keyframes */
+}
+.arrow:hover,
+.arrow:focus-visible{
+  animation: spring-pop .52s cubic-bezier(.34,1.56,.64,1);
+}
+.arrow:active{
+  animation: spring-press .42s cubic-bezier(.34,1.56,.64,1);
+}
+.arrow svg{ width:39px; height:39px; display:block; }
+/* 可选：给按钮加 .pulse 获得呼吸脉冲 */
+.arrow.pulse{ animation: breathe 2.4s ease-in-out infinite; }
+.arrow.pulse:hover,
+.arrow.pulse:focus-visible,
+.arrow.pulse:active{ animation: none; }
 
   /* —— Lightbox（相册大图预览）—— */
   .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.7); display:none; align-items:center; justify-content:center; z-index:10000; padding:16px; }
